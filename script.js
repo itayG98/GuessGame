@@ -58,11 +58,9 @@ function setScore() {
 
 function checkInput() {
   if (Number(guessInpt.value) === lottery && score > 0) {
-    console.log('win');
     win();
   } else if (score > 0) {
     score--;
-    console.log('score --');
     setScore();
     if (guessInpt.value > lottery) {
       msg.innerHTML = 'A bit lowerr';
