@@ -7,8 +7,9 @@ let checkbtn = document.querySelector('.check');
 let guessInpt = document.querySelector('.guess');
 let msg = document.querySelector('.message');
 let againbtn = document.querySelector('.again');
-let highScore = document.querySelector('.highscore');
-highScore.innerHTML = 0;
+let highScore = 0;
+let highScoreText = document.querySelector('.highscore');
+highScoreText.innerHTML = highScore;
 let scoreText = document.querySelector('.score');
 let score = TOPVALUE;
 setScore();
@@ -42,8 +43,9 @@ function replayClick() {
 function win() {
   document.querySelector('body').classList.add('win');
   msg.innerHtml = 'Correct!';
-  if (Number(highScore.innerHTML) < Number(scoreText.innerHTML)) {
-    highScore.innerHTML = scoreText.innerHTML;
+  if (highScore < Number(scoreText.innerHTML)) {
+    highScore = Number(scoreText.innerHTML);
+    highScoreText.innerHTML = highScore;
   }
   document.querySelector('.number').innerHTML = lottery;
 }
