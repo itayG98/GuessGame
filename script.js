@@ -15,21 +15,22 @@ setScore();
 
 document.querySelector('.between').innerHTML = `(Between 1 and ${TOPVALUE})`;
 checkbtn.addEventListener('click', CheckClick);
-againbtn.addEventListener('click', replay);
+againbtn.addEventListener('click', replayClick);
 
 function CheckClick() {
   if (document.querySelector('body').classList.contains('win')) {
-    replay();
+    replayClick();
   } else if (score <= 0) {
     msg.innerHTML = 'You`ve lost Please press replay';
   } else if (guessInpt.value.length !== 0) {
     checkInput();
   } else {
     msg.innerHTML = 'Inavilid input';
+    guessInpt.value = '';
   }
 }
 
-function replay() {
+function replayClick() {
   document.querySelector('body').classList.remove('win');
   msg.innerHTML = 'Start guessing';
   lottery = generateLottery();
