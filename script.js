@@ -2,16 +2,29 @@
 
 const TOPVALUE = Number(20);
 
-let lottery = generateLottery();
+let lottery;
 let checkbtn = document.querySelector('.check');
 let guessInpt = document.querySelector('.guess');
 let msg = document.querySelector('.message');
 let againbtn = document.querySelector('.again');
+
 let highScore = 0;
 let highScoreText = document.querySelector('.highscore');
 highScoreText.innerHTML = highScore;
 let scoreText = document.querySelector('.score');
 let score = TOPVALUE;
+
+const setScore = () => {
+  scoreText.innerHTML = `${score}`;
+};
+const generateLottery = () => {
+  lottery = Math.trunc(Math.random() * TOPVALUE + 1);
+};
+const displayMessege = messege => {
+  msg.innerHTML = messege;
+};
+
+generateLottery();
 setScore();
 
 document.querySelector('.between').innerHTML = `(Between 1 and ${TOPVALUE})`;
@@ -22,11 +35,12 @@ function CheckClick() {
   if (document.querySelector('body').classList.contains('win')) {
     replayClick();
   } else if (score <= 0) {
-    msg.innerHTML = 'You`ve lost Please press replay';
+    displayMessege('You`ve lost Please press replay');
   } else if (guessInpt.value.length !== 0) {
     checkInput();
   } else {
-    msg.innerHTML = 'Inavilid input';
+    console.log(guessInpt.value.length); /*if not a number */
+    displayMessege('Inavilid input');
     guessInpt.value = '';
   }
 }
@@ -34,28 +48,20 @@ function CheckClick() {
 function replayClick() {
   document.querySelector('body').classList.remove('win');
   msg.innerHTML = 'Start guessing';
-  lottery = generateLottery();
   score = TOPVALUE;
   setScore();
+  generateLottery();
   document.querySelector('.number').innerHTML = '?';
 }
 
 function win() {
   document.querySelector('body').classList.add('win');
-  msg.innerHtml = 'Correct!';
+  displayMessege('Correct!');
   if (highScore < Number(scoreText.innerHTML)) {
     highScore = Number(scoreText.innerHTML);
     highScoreText.innerHTML = highScore;
   }
   document.querySelector('.number').innerHTML = lottery;
-}
-
-function generateLottery() {
-  return Math.trunc(Math.random() * TOPVALUE + 1);
-}
-
-function setScore() {
-  scoreText.innerHTML = `${score}`;
 }
 
 function checkInput() {
@@ -65,11 +71,11 @@ function checkInput() {
     score--;
     setScore();
     if (guessInpt.value > lottery) {
-      msg.innerHTML = 'A bit lowerr';
+      displayMessege('A bit lowerr');
     } else {
-      msg.innerHTML = 'A bit higher';
+      displayMessege('A bit higher');
     }
   } else {
-    msg.innerHTML = 'You`ve lost';
+    displayMessege('You`ve lost');
   }
 }
